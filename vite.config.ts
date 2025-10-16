@@ -1,18 +1,19 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
+  plugins: [react()],
+  
+  // 👇 This is critical for GitHub Pages — use your repo name here
+  base: '/eco-scheduler-ai/',
+
+  build: {
+    outDir: 'dist',  // default build folder
+  },
+
   server: {
-    host: "::",
-    port: 8080,
+    port: 5173, // optional: dev server port
+    open: true, // auto-opens browser when you run `npm run dev`
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-}));
+})
