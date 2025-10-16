@@ -34,6 +34,29 @@ const JobScheduler = () => {
     try {
       const scheduledResult = await scheduleJob(data);
       setResult(scheduledResult);
+      
+      // Save to database
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        await supabase.from("job_history").insert({
+          user_id: user.id,
+          job_name: data.name,
+          cpu_usage: data.cpuUsage,
+          runtime: data.runtime,
+          urgency: data.urgency,
+          region_id: scheduledResult.region.id,
+          region_name: scheduledResult.region.name,
+          region_location: scheduledResult.region.location,
+          carbon_intensity: scheduledResult.region.carbonIntensity,
+          estimated_energy: scheduledResult.estimatedEnergy,
+          estimated_co2: scheduledResult.estimatedCO2,
+          estimated_cost: scheduledResult.estimatedCost,
+          carbon_saved: scheduledResult.carbonSaved,
+        });
+      }
+      
       toast.success("Job scheduled successfully!", {
         description: `Optimal region: ${scheduledResult.region.name}`,
       });
