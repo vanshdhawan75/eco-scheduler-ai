@@ -14,7 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      job_history: {
+        Row: {
+          carbon_intensity: number
+          carbon_saved: number
+          cpu_usage: number
+          created_at: string | null
+          estimated_co2: number
+          estimated_cost: number
+          estimated_energy: number
+          id: string
+          job_name: string
+          region_id: string
+          region_location: string
+          region_name: string
+          runtime: number
+          urgency: string
+          user_id: string
+        }
+        Insert: {
+          carbon_intensity: number
+          carbon_saved: number
+          cpu_usage: number
+          created_at?: string | null
+          estimated_co2: number
+          estimated_cost: number
+          estimated_energy: number
+          id?: string
+          job_name: string
+          region_id: string
+          region_location: string
+          region_name: string
+          runtime: number
+          urgency: string
+          user_id: string
+        }
+        Update: {
+          carbon_intensity?: number
+          carbon_saved?: number
+          cpu_usage?: number
+          created_at?: string | null
+          estimated_co2?: number
+          estimated_cost?: number
+          estimated_energy?: number
+          id?: string
+          job_name?: string
+          region_id?: string
+          region_location?: string
+          region_name?: string
+          runtime?: number
+          urgency?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
