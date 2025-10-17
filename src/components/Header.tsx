@@ -9,14 +9,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
           <div className="p-2 rounded-lg gradient-eco">
             <Leaf className="h-6 w-6 text-white" />
           </div>
@@ -27,6 +29,9 @@ const Header = () => {
         </div>
         
         <div className="flex items-center gap-4">
+          <Button variant="ghost" onClick={() => navigate("/pricing")}>
+            Pricing
+          </Button>
           <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-success-light">
             <div className="w-2 h-2 rounded-full bg-success-dark animate-pulse-slow"></div>
             <span className="text-sm font-medium text-success-dark">Live Carbon Tracking</span>
