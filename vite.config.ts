@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
   },
   
   // 👇 Only use base path for production GitHub Pages build
-  base: process.env.NODE_ENV === 'production' ? '/eco-scheduler-ai/' : '/',
+  base: mode === 'production' ? '/eco-scheduler-ai/' : '/',
 
   build: {
     outDir: 'dist',
