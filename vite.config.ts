@@ -11,8 +11,8 @@ export default defineConfig({
     },
   },
   
-  // 👇 This is critical for GitHub Pages — use your repo name here
-  base: '/eco-scheduler-ai/',
+  // 👇 Only use base path for production GitHub Pages build
+  base: process.env.NODE_ENV === 'production' ? '/eco-scheduler-ai/' : '/',
 
   build: {
     outDir: 'dist',  // default build folder
